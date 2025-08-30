@@ -1,4 +1,6 @@
-// SPDX-License-Identifier: MIT
+
+Block Explorer URL: https://testnet.snowtrace.io
+ SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
@@ -55,7 +57,7 @@ contract OnchainSIP {
         emit PlanCreated(msg.sender, pool, totalAmount, amountPerInterval);
     }
 
-    /// @notice Creates a SIP plan using native BNB
+    /// @notice Creates a SIP plan using native AVAX
     function createPlanWithNative(
         string memory pool,
         uint256 amountPerInterval,
@@ -63,7 +65,7 @@ contract OnchainSIP {
         uint256 maturity,
         address destAddress
     ) external payable {
-        require(msg.value >= 0.2 ether, "Minimum total is 0.2 tBNB");
+    require(msg.value >= 0.2 ether, "Minimum total is 0.2 AVAX");
         require(amountPerInterval >= 0.006 ether, "Interval too small");
         require(block.timestamp < maturity, "Maturity must be in future");
         require(!userPlans[msg.sender][pool].active, "SIP already exists");
@@ -121,6 +123,6 @@ contract OnchainSIP {
         return userPlans[user][pool];
     }
 
-    // Allow contract to receive BNB
+    // Allow contract to receive AVAX
     receive() external payable {}
 }
